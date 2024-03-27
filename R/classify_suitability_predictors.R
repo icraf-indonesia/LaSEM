@@ -36,7 +36,7 @@ classify_suitability_predictors <- function(raster_input, suitability_data) {
     filter(name_parameter %in% names(raster_input))
 
   if(suitability_data[["name_parameter"]][1] == "soil_texture"){
-    texture_lookup <- read_csv("data/lookup_tables/lookup_texture_usda.csv") |> select(texture_kemtan, TEXTURE_USDA )
+    texture_lookup <- readr::read_csv(system.file("extdata/lookup_tables/lookup_texture_usda.csv", package = "ALSA")) |> select(texture_kemtan, TEXTURE_USDA )
 
     # Apply the mapping function to each element in the value list
     suitability_data <- suitability_data %>%

@@ -10,8 +10,10 @@
 #'
 #' @examples
 #' \dontrun{
-#'   # Assuming you have suitability_factors as a SpatRaster and crop_suitability as a data frame
-#'   stacked_suitability <- classify_and_stack_suitability_factors(suitability_factors, crop_suitability)
+#'   # Assuming you have suitability_factors
+#'   # as a SpatRaster and crop_suitability as a data frame
+#'   stacked_suitability <- classify_and_stack_suitability_factors(
+#'                               suitability_factors, crop_suitability)
 #' }
 #' @export
 classify_and_stack_suitability_factors <- function(stacked_raster, suitability_data) {
