@@ -1,0 +1,91 @@
+name_common,name_sp,class,name_parameter,value,unit
+cengkeh,Eugenia aromatica L.,S1,clim_dry_months,1-2,bulan
+cengkeh,Eugenia aromatica L.,S2,clim_dry_months,2-3,bulan
+cengkeh,Eugenia aromatica L.,S3,clim_dry_months,3-4,bulan
+cengkeh,Eugenia aromatica L.,N,clim_dry_months,>4,bulan
+cengkeh,Eugenia aromatica L.,S1,clim_humidity,70<,%
+cengkeh,Eugenia aromatica L.,S2,clim_humidity,>70,%
+cengkeh,Eugenia aromatica L.,S1,clim_precipitation_tot,1500-2500,mm
+cengkeh,Eugenia aromatica L.,S2,clim_precipitation_tot,2500-3000,mm
+cengkeh,Eugenia aromatica L.,S3,clim_precipitation_tot,1250-1500,mm
+cengkeh,Eugenia aromatica L.,S3,clim_precipitation_tot,3000-4000,mm
+cengkeh,Eugenia aromatica L.,N,clim_precipitation_tot,1250<,mm
+cengkeh,Eugenia aromatica L.,N,clim_precipitation_tot,>4000,mm
+cengkeh,Eugenia aromatica L.,S1,clim_temperature_avg,25-28,°C
+cengkeh,Eugenia aromatica L.,S2,clim_temperature_avg,28-32,°C
+cengkeh,Eugenia aromatica L.,S2,clim_temperature_avg,20-25,°C
+cengkeh,Eugenia aromatica L.,S3,clim_temperature_avg,32-35,°C
+cengkeh,Eugenia aromatica L.,N,clim_temperature_avg,>35,°C
+cengkeh,Eugenia aromatica L.,N,clim_temperature_avg,20<,°C
+cengkeh,Eugenia aromatica L.,S1,soil_base_saturation,>50,%
+cengkeh,Eugenia aromatica L.,S2,soil_base_saturation,35-50,%
+cengkeh,Eugenia aromatica L.,S3,soil_base_saturation,35<,%
+cengkeh,Eugenia aromatica L.,S1,soil_cec,>16,cmol
+cengkeh,Eugenia aromatica L.,S2,soil_cec,5-16,cmol
+cengkeh,Eugenia aromatica L.,S3,soil_cec,5<,cmol
+cengkeh,Eugenia aromatica L.,S1,soil_coarse_fragments,15<,%
+cengkeh,Eugenia aromatica L.,S2,soil_coarse_fragments,15-35,%
+cengkeh,Eugenia aromatica L.,S3,soil_coarse_fragments,35-55,%
+cengkeh,Eugenia aromatica L.,N,soil_coarse_fragments,>55,%
+cengkeh,Eugenia aromatica L.,S1,soil_depth,>100,cm
+cengkeh,Eugenia aromatica L.,S2,soil_depth,75-100,cm
+cengkeh,Eugenia aromatica L.,S3,soil_depth,50-75,cm
+cengkeh,Eugenia aromatica L.,N,soil_depth,50<,cm
+cengkeh,Eugenia aromatica L.,S1,soil_drainage,baik;sedang,unitless
+cengkeh,Eugenia aromatica L.,S2,soil_drainage,agakterhambat,unitless
+cengkeh,Eugenia aromatica L.,S3,soil_drainage,terhambat;agakcepat,unitless
+cengkeh,Eugenia aromatica L.,N,soil_drainage,sangatterhambat;cepat,unitless
+cengkeh,Eugenia aromatica L.,S1,soil_erosion_risk,0.15<,unitless
+cengkeh,Eugenia aromatica L.,S2,soil_erosion_risk,0.15-0.9,unitless
+cengkeh,Eugenia aromatica L.,S2,soil_erosion_risk,0.9-1.8,unitless
+cengkeh,Eugenia aromatica L.,S3,soil_erosion_risk,1.8-4.8,unitless
+cengkeh,Eugenia aromatica L.,N,soil_erosion_risk,>4.8,unitless
+cengkeh,Eugenia aromatica L.,S1,soil_esp,10<,%
+cengkeh,Eugenia aromatica L.,S2,soil_esp,10-15,%
+cengkeh,Eugenia aromatica L.,S3,soil_esp,15-20,%
+cengkeh,Eugenia aromatica L.,N,soil_esp,>20,%
+cengkeh,Eugenia aromatica L.,S3,soil_flood_height,25,cm
+cengkeh,Eugenia aromatica L.,N,soil_flood_height,>25,cm
+cengkeh,Eugenia aromatica L.,S3,soil_flood_length,7<,hari
+cengkeh,Eugenia aromatica L.,N,soil_flood_length,>7,hari
+cengkeh,Eugenia aromatica L.,S1,soil_k2o,>20,mg/100 g
+cengkeh,Eugenia aromatica L.,S2,soil_k2o,10-20,mg/100 g
+cengkeh,Eugenia aromatica L.,S3,soil_k2o,10<,mg/100 g
+cengkeh,Eugenia aromatica L.,S1,soil_nitrogen,>0.2,%
+cengkeh,Eugenia aromatica L.,S2,soil_nitrogen,0.10-0.20,%
+cengkeh,Eugenia aromatica L.,S3,soil_nitrogen,0.10<,%
+cengkeh,Eugenia aromatica L.,S1,soil_organic_c,>0.8,%
+cengkeh,Eugenia aromatica L.,S2,soil_organic_c,0.8<,%
+cengkeh,Eugenia aromatica L.,S1,soil_outcrop,5<,%
+cengkeh,Eugenia aromatica L.,S2,soil_outcrop,5-15,%
+cengkeh,Eugenia aromatica L.,S3,soil_outcrop,15-25,%
+cengkeh,Eugenia aromatica L.,N,soil_outcrop,>25,%
+cengkeh,Eugenia aromatica L.,S1,soil_p2o5,>40,mg/100 g
+cengkeh,Eugenia aromatica L.,S2,soil_p2o5,21-40,mg/100 g
+cengkeh,Eugenia aromatica L.,S3,soil_p2o5,15-20,mg/100 g
+cengkeh,Eugenia aromatica L.,S3,soil_p2o5,15<,mg/100 g
+cengkeh,Eugenia aromatica L.,S1,soil_ph,5.0-7.0,unitless
+cengkeh,Eugenia aromatica L.,S2,soil_ph,4.0-5.0,unitless
+cengkeh,Eugenia aromatica L.,S2,soil_ph,7.0-8.0,unitless
+cengkeh,Eugenia aromatica L.,S3,soil_ph,4.0<,unitless
+cengkeh,Eugenia aromatica L.,S3,soil_ph,>8.0,unitless
+cengkeh,Eugenia aromatica L.,S1,soil_salinity,5<,dS/m
+cengkeh,Eugenia aromatica L.,S2,soil_salinity,5-8,dS/m
+cengkeh,Eugenia aromatica L.,S3,soil_salinity,8-10,dS/m
+cengkeh,Eugenia aromatica L.,N,soil_salinity,>10,dS/m
+cengkeh,Eugenia aromatica L.,S1,soil_slope,8<,%
+cengkeh,Eugenia aromatica L.,S2,soil_slope,8-15,%
+cengkeh,Eugenia aromatica L.,S3,soil_slope,15-40,%
+cengkeh,Eugenia aromatica L.,N,soil_slope,>40,%
+cengkeh,Eugenia aromatica L.,S1,soil_sulfidic_depth,>125,cm
+cengkeh,Eugenia aromatica L.,S2,soil_sulfidic_depth,100-125,cm
+cengkeh,Eugenia aromatica L.,S3,soil_sulfidic_depth,60-100,cm
+cengkeh,Eugenia aromatica L.,N,soil_sulfidic_depth,60<,cm
+cengkeh,Eugenia aromatica L.,S1,soil_surface_rocks,5<,%
+cengkeh,Eugenia aromatica L.,S2,soil_surface_rocks,5-15,%
+cengkeh,Eugenia aromatica L.,S3,soil_surface_rocks,15-40,%
+cengkeh,Eugenia aromatica L.,N,soil_surface_rocks,>40,%
+cengkeh,Eugenia aromatica L.,S1,soil_texture,h_ah,unitless
+cengkeh,Eugenia aromatica L.,S2,soil_texture,s,unitless
+cengkeh,Eugenia aromatica L.,S3,soil_texture,ak,unitless
+cengkeh,Eugenia aromatica L.,N,soil_texture,k,unitless

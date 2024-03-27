@@ -1,0 +1,14 @@
+TEXTURE_USDA, description_eng, description_idn, code_id, texture_kemtan
+1, clay (heavy), liat, C, sh
+2, silty clay, liat berdebu, SC, h
+3, clay (light), liat, C, sh
+4, silty clay loam,lempung liat berpasir, SCL, ah
+5, clay loam, lempung berliat, CL, ah
+6, silt, debu, Si, s
+7, silty loam, lempung berdebu, SiL, s
+8, sandy clay, liat berpasir, SC, h
+9, loam, lempung, L, s
+10, sandy clay loam, lempung liat berpasir, SCL, ah
+11, sandy loam, lempung berpasir, SL, ak
+12, loamy sand, pasir berlempung, LS, k
+13, sand, pasir, S, k

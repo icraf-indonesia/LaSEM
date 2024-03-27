@@ -1,0 +1,27 @@
+no,karakteristik_lahan,name_parameter,intervention,low,med,high
+1,Temperatur rata-rata tahunan,clim_temperature_avg,FALSE,NA,NA,NA
+2,Bulan kering,clim_dry_months,TRUE,NA,+,++
+3,Curah hujan/tahun,clim_precipitation_tot,TRUE,NA,+,++
+5,Drainase,soil_drainage,TRUE,NA,+,++
+6,Tekstur,soil_texture,FALSE,NA,NA,NA
+7,Bahan kasar,soil_coarse_fragments,TRUE,NA,NA,+
+8,Kedalaman efektif,soil_depth,TRUE,NA,+,+
+9,Kematangan Gambut,soil_peat_maturity,TRUE,NA,NA,+
+10,Ketebalan Gambut,soil_peat_depth,TRUE,NA,NA,+
+11,KTK tanah,soil_cec,TRUE,NA,+,++
+12,Kejenuhan Basa,soil_base_saturation,TRUE,NA,+,++
+13,pH,soil_ph,TRUE,NA,+,++
+14,C organik,soil_organic_c,TRUE,NA,+,++
+15,N total,soil_nitrogen,TRUE,+,++,+++
+16,K tersedia,soil_k2o,TRUE,+,++,+++
+17,P2O5 tersedia,soil_p2o5,TRUE,+,++,+++
+18,Salinitas,soil_salinity,TRUE,NA,+,++
+19,Alkalinitas,soil_esp,TRUE,NA,+,++
+20,Kedalaman sulfidik/pirit,soil_sulfidic_depth,TRUE,NA,+,++
+21,Bahaya erosi,soil_erosion_risk,TRUE,NA,+,++
+22,tinggi banjir,soil_flood_height,TRUE,NA,+,++
+23,lama banjir,soil_flood_length,TRUE,NA,+,++
+24,Batuan di permukaan,soil_surface_rocks,TRUE,NA,NA,+
+25,Singkapan batuan,soil_outcrop,TRUE,NA,NA,+
+26,Kelerengan,soil_slope,TRUE,NA,+,+
+27,Kelembapan,clim_humidity,TRUE,NA,+,++          
