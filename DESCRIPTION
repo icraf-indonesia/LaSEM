@@ -1,12 +1,11 @@
-Package: ALaS
-Title: What the Package Does (One Line, Title Case)
+Package: ALSA
+Title: Agricultural Land Suitability Analysis (ALSA)
 Version: 0.0.0.9000
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
+    person("Dony", "Indiarto", , "d.indiarto@cifor-icraf.org", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0001-9546-8201"))
 Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.1
