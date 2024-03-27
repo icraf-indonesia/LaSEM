@@ -24,7 +24,7 @@ harmonize_rasters <-
               all(
                 c("parameter_name", "availability", "raster_path") %in% names(climate_soil_data)
               ))
-browser()
+
     climate_soil_data <- climate_soil_data %>%
       mutate(raster_object = map(raster_path, ~ if (file.exists(.x))
         rast(.x)
