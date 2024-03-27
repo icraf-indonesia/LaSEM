@@ -2,7 +2,7 @@
 #'
 #' This function reads a CSV file for lookup intervention data and processes it along with a given suitability attribute dataframe to calculate the suitability potential table.
 #'
-#' @param path_lookup_intervention A string path to the CSV file containing lookup intervention data.
+#' @param lookup_intervention A tibble containing lookup intervention data.
 #' @param intervention_level A string indicating the level of intervention.
 #' @param suitability_attr A dataframe containing suitability attributes with columns name_parameter, ID, intervention, limiting_factor_actual, and suitability.
 #' @param lookup_suitability_layer A dataframe with two columns: `ID` and `names`.
@@ -23,7 +23,7 @@
 #'   attr <- readr::read_csv("output/kesesuaian_jagung_aktual.csv")
 #'   calculate_suitability_potential_table(path, level, attr)
 #' }
-calculate_suitability_potential_table <- function(path_lookup_intervention, intervention_level, suitability_attr, lookup_suitability_layer) {
+calculate_suitability_potential_table <- function(lookup_intervention, intervention_level, suitability_attr, lookup_suitability_layer) {
 
   # Check for input types and specifications
   if (!is.character(path_lookup_intervention) || length(path_lookup_intervention) != 1) {
@@ -44,7 +44,7 @@ calculate_suitability_potential_table <- function(path_lookup_intervention, inte
   }
 
   # Reading and processing the lookup intervention data
-  lookup_intervention <- read_csv(path_lookup_intervention) |>
+  lookup_intervention <- lookup_intervention |>
     select(-c("no", "karakteristik_lahan")) |>
     mutate(
       low = ifelse(is.na(low), 0, str_count(low, pattern = fixed("+"))),
