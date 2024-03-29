@@ -5,6 +5,7 @@
 #' SpatRaster, and `names` are the names of these layers.
 #'
 #' @param spatraster A `SpatRaster` object.
+#' @importFrom terra names
 #'
 #' @return A dataframe with two columns: `ID` and `names`.
 #'         `ID` is a sequence from 1 to the number of layers in the `SpatRaster` object,

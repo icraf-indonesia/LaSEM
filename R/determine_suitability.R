@@ -16,6 +16,8 @@
 #' @examples
 #' determine_suitability(c("S1", "S1", "S3", "S3", "S2"))
 #'
+#' @importFrom purrr map_chr
+#' @importFrom stats na.omit
 #' @export
 determine_suitability <- function(class_vector) {
   # Define the order of priority for the suitability classes

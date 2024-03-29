@@ -35,6 +35,7 @@ cropSuitabilityParamsUI <- function(id) {
 #' @importFrom shiny moduleServer reactive observeEvent
 #' @importFrom tools file_ext
 #' @importFrom DT renderDT
+#' @importFrom readr read_csv
 #'
 #' @export
 cropSuitabilityParamsServer <- function(id) {
@@ -50,7 +51,7 @@ cropSuitabilityParamsServer <- function(id) {
         return(NULL)
       }
 
-      read.csv(input$cropSuitabilityData$datapath, stringsAsFactors = FALSE)
+      read_csv(input$cropSuitabilityData$datapath)
     })
 
     # Render the crop suitability parameters data table

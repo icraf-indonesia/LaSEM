@@ -12,9 +12,11 @@
 #' @return A tibble containing the calculated suitability potential table.
 #'
 #' @importFrom readr read_csv
-#' @importFrom dplyr select mutate group_by ungroup summarise rename_with
+#' @importFrom dplyr select mutate group_by ungroup summarise rename_with rename
 #' @importFrom tidyr unnest_longer
 #' @importFrom stringr str_count
+#' @importFrom tidyselect all_of
+#' @importFrom tibble is_tibble
 #'
 #' @examples
 #' \dontrun{

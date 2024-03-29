@@ -21,39 +21,52 @@
 #'
 #' @examples
 #' \dontrun{
-#'   # Assuming harmonised_rasters, suitability_parameter, and path_lookup_intervention are predefined
-#'   result <- perform_suitability_analysis(harmonised_rasters, suitability_parameter, path_lookup_intervention)
+#'   # Assuming harmonised_rasters, suitability_parameter,
+#'   # and path_lookup_intervention are predefined
+#'   result <- perform_suitability_analysis(harmonised_rasters,
+#'   suitability_parameter, path_lookup_intervention)
 #' }
-perform_suitability_analysis <- function(harmonised_rasters, suitability_parameter, lookup_intervention) {
-  # Check input classes
-  stopifnot(inherits(harmonised_rasters, "SpatRaster"),
-            is.data.frame(suitability_parameter) || inherits(suitability_parameter, "tbl_df"))
-
-  # 3a. Suitability Analysis Actual
-  suitability_map <- process_suitability(suitability_factors = harmonised_rasters,
-                                         crop_suitability = suitability_parameter)
-
-  # 3b. Suitability Analysis Potential
-  intervention_table <- list("low", "med", "high") %>%
-    map(
-      ~ calculate_suitability_potential_table(
-        lookup_intervention = lookup_intervention,
-        intervention_level = .,
-        suitability_attr = suitability_map[["suitability_attr"]],
-        lookup_suitability_layer = suitability_map[["lookup_suitability_factors"]]
-      )
+perform_suitability_analysis <-
+  function(harmonised_rasters,
+           suitability_parameter,
+           lookup_intervention) {
+    # Check input classes
+    stopifnot(
+      inherits(harmonised_rasters, "SpatRaster"),
+      is.data.frame(suitability_parameter) ||
+        inherits(suitability_parameter, "tbl_df")
     )
 
-  sutability_attr_pot <- Reduce(function(x, y) left_join(x, y, by = "ID"), intervention_table)
+    # 3a. Suitability Analysis Actual
+    suitability_map <-
+      process_suitability(suitability_factors = harmonised_rasters,
+                          crop_suitability = suitability_parameter)
 
-  suitability_polygon <- suitability_map$suitability_polygon |>
-    left_join(sutability_attr_pot, by = "ID") |>
-    mutate(suitability_potential_low  = case_when(suitability == "S1" ~ "S1", .default = suitability_potential_low),
-           suitability_potential_med  = case_when(suitability == "S1" ~ "S1", .default = suitability_potential_med),
-           suitability_potential_high  = case_when(suitability == "S1" ~ "S1", .default = suitability_potential_high)) |>
-    st_transform(crs = 4326)
+    # 3b. Suitability Analysis Potential
+    intervention_table <- list("low", "med", "high") %>%
+      map(
+        ~ calculate_suitability_potential_table(
+          lookup_intervention = lookup_intervention,
+          intervention_level = .,
+          suitability_attr = suitability_map[["suitability_attr"]],
+          lookup_suitability_layer = suitability_map[["lookup_suitability_factors"]]
+        )
+      )
 
-  suitability_map$suitability_polygon <- suitability_polygon
+    sutability_attr_pot <-
+      Reduce(function(x, y)
+        left_join(x, y, by = "ID"), intervention_table)
 
-  return(suitability_map)
-}
+    suitability_polygon <- suitability_map$suitability_polygon |>
+      left_join(sutability_attr_pot, by = "ID") |>
+      mutate(
+        suitability_potential_low  = case_when(suitability == "S1" ~ "S1", .default = suitability_potential_low),
+        suitability_potential_med  = case_when(suitability == "S1" ~ "S1", .default = suitability_potential_med),
+        suitability_potential_high  = case_when(suitability == "S1" ~ "S1", .default = suitability_potential_high)
+      ) |>
+      st_transform(crs = 4326)
+
+    suitability_map$suitability_polygon <- suitability_polygon
+
+    return(suitability_map)
+  }

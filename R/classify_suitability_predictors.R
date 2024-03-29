@@ -9,6 +9,13 @@
 #'                       raster_input = clim_temperature_avg,
 #'                       suitability_data = crop_suitability)
 #' }
+#' @importFrom terra classify droplevels
+#' @importFrom dplyr filter select mutate case_when
+#' @importFrom stringr str_starts str_detect str_extract str_ends
+#' @importFrom purrr map
+#' @importFrom readr read_csv
+#' @importFrom tidyr unnest_longer replace_na
+#' @importFrom magrittr %>%
 #' @export
 classify_suitability_predictors <- function(raster_input, suitability_data) {
   # Check if raster_input is of the correct type

@@ -3,7 +3,8 @@
 #' This module provides a user interface for uploading and visualizing soil and climate data.
 #'
 #' @param id The ID of the module, used to create namespaces for the UI elements.
-#'
+#' @importFrom shiny tagList sidebarLayout sidebarPanel fileInput NS checkboxInput actionButton mainPanel tabsetPanel tabPanel plotOutput
+#' @importFrom DT DTOutput
 #' @return A tagList containing the UI elements for the Soil and Climate Data module.
 #'
 #' @export
@@ -39,6 +40,7 @@ soilClimateDataUI <- function(id) {
 #' @importFrom tools file_ext
 #' @importFrom DT datatable renderDT
 #' @importFrom dplyr filter
+#' @importFrom readr read_csv
 #' @importFrom terra plot
 #'
 #' @export
@@ -55,7 +57,7 @@ soilClimateDataServer <- function(id) {
         return(NULL)
       }
 
-      read.csv(input$soilClimateData$datapath, stringsAsFactors = FALSE)
+      read_csv(input$soilClimateData$datapath)
     })
 
     # Render the data table

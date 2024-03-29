@@ -15,6 +15,7 @@
 #'   stacked_suitability <- classify_and_stack_suitability_factors(
 #'                               suitability_factors, crop_suitability)
 #' }
+#' @importFrom terra rast nlyr
 #' @export
 classify_and_stack_suitability_factors <- function(stacked_raster, suitability_data) {
   # Apply the classify_suitability_predictors function to each layer using lapply
@@ -25,7 +26,7 @@ classify_and_stack_suitability_factors <- function(stacked_raster, suitability_d
   })
 
   # Stack the reclassified rasters
-  stacked_suitability <- terra::rast(reclassified_rasters)
+  stacked_suitability <- rast(reclassified_rasters)
 
   # Return the stacked raster
   return(stacked_suitability)

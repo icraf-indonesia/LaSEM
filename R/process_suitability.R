@@ -17,10 +17,13 @@
 #'   \item{suitability_attr}{A dataframe containing attributes for each suitability category.}
 #'   \item{suitability_by_factors}{A list of SpatRaster objects for individual suitability factors.}
 #' }
-#' @importFrom terra freq cats as.polygons
-#' @importFrom dplyr select left_join mutate group_by summarise
+#' @importFrom terra freq cats as.polygons subset
+#' @importFrom dplyr select left_join mutate group_by summarise pull filter row_number rowwise rename pick
 #' @importFrom tidyr unnest_wider unnest_longer
 #' @importFrom sf st_as_sf
+#' @importFrom purrr map map2
+#' @importFrom rlang .data
+#' @importFrom tibble as_tibble
 #' @export
 #'
 #' @examples
