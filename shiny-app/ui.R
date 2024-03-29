@@ -1,22 +1,14 @@
 library(shiny)
 
-ui <- fluidPage(
-  titlePanel("Agricultural Land Suitability Analysis"),
+ui <- navbarPage(
+  "Agricultural Land Suitability Analysis (ALSA)",
 
-  sidebarLayout(
-    sidebarPanel(
-      fileInput("csvFile", "Upload CSV File",
-                accept = c("text/csv", "text/comma-separated-values,text/plain", ".csv")
-      ),
-      checkboxInput("editableTable", "Editable Table", value = FALSE),
-      actionButton("visualizeRasters", "Visualize Rasters")
-    ),
-
-    mainPanel(
-      tabsetPanel(
-        tabPanel("Data Table", DTOutput("dataTable")),
-        tabPanel("Raster Visualization", plotOutput("rasterPlot"))
-      )
-    )
+  navbarMenu("Upload Data",
+             tabPanel("Soil and Climate Data",
+                      soilClimateDataUI("soilClimateData")
+             ),
+             tabPanel("Crop Suitability Parameters",
+                      cropSuitabilityParamsUI("cropSuitabilityParams")
+             )
   )
 )
