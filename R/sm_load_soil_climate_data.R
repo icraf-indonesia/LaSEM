@@ -16,7 +16,8 @@ soilClimateDataUI <- function(id) {
                   accept = c("text/csv", "text/comma-separated-values,text/plain", ".csv")
         ),
         checkboxInput(NS(id, "editableTable"), "Editable Table", value = FALSE),
-        actionButton(NS(id, "visualizeRasters"), "Visualize Rasters")
+        actionButton(NS(id, "visualizeRasters"), "Visualize Rasters"),
+        actionButton(NS(id, "submitSoilClimateData"), "Submit Soil Climate Data")
       ),
       mainPanel(
         tabsetPanel(
@@ -44,7 +45,7 @@ soilClimateDataUI <- function(id) {
 #' @importFrom terra plot
 #'
 #' @export
-soilClimateDataServer <- function(id) {
+soilClimateDataServer <- function(id, submittedData) {
   moduleServer(id, function(input, output, session) {
     # Reactive expression for the uploaded CSV file
     csvData <- reactive({
@@ -98,5 +99,11 @@ soilClimateDataServer <- function(id) {
       req(stackedRasters())
       terra::plot(stackedRasters())
     })
+
+    observeEvent(input$submitSoilClimateData, {
+      submittedData$soilClimateData <- stackedRasters()
+      showNotification("Soil Climate Data submitted successfully!", type = "message")
+    })
+
   })
 }

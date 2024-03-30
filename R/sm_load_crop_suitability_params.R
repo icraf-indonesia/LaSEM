@@ -14,7 +14,8 @@ cropSuitabilityParamsUI <- function(id) {
         fileInput(NS(id, "cropSuitabilityData"), "Upload Crop Suitability Parameters (CSV)",
                   accept = c("text/csv", "text/comma-separated-values,text/plain", ".csv")
         ),
-        checkboxInput(NS(id, "editableTable"), "Editable Table", value = FALSE)
+        checkboxInput(NS(id, "editableTable"), "Editable Table", value = FALSE),
+        actionButton(NS(id, "submitCropParams"), "Submit Crop Parameters")
       ),
       mainPanel(
         DTOutput(NS(id, "cropSuitabilityTable"))
@@ -38,7 +39,7 @@ cropSuitabilityParamsUI <- function(id) {
 #' @importFrom readr read_csv
 #'
 #' @export
-cropSuitabilityParamsServer <- function(id) {
+cropSuitabilityParamsServer <- function(id, submittedData) {
   moduleServer(id, function(input, output, session) {
     # Reactive expression for the uploaded crop suitability parameters CSV file
     cropSuitabilityData <- reactive({
@@ -65,5 +66,11 @@ cropSuitabilityParamsServer <- function(id) {
       info <- input$cropSuitabilityTable_cell_edit
       cropSuitabilityData()[info$row, info$col] <<- info$value
     })
+
+    # Observe submit button clicks in module servers
+    observeEvent(input$submitCropParams, {
+      submittedData$cropParams <- cropSuitabilityData()
+    })
+
   })
 }
