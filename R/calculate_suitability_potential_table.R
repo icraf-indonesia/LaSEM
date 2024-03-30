@@ -12,9 +12,9 @@
 #' @return A tibble containing the calculated suitability potential table.
 #'
 #' @importFrom readr read_csv
-#' @importFrom dplyr select mutate group_by ungroup summarise rename_with rename
+#' @importFrom dplyr select mutate group_by ungroup summarise rename_with rename case_when
 #' @importFrom tidyr unnest_longer
-#' @importFrom stringr str_count
+#' @importFrom stringr str_count fixed
 #' @importFrom tidyselect all_of
 #' @importFrom tibble is_tibble
 #'
@@ -27,13 +27,9 @@
 #' }
 calculate_suitability_potential_table <- function(lookup_intervention, intervention_level, suitability_attr, lookup_suitability_layer) {
 
-  # Check for input types and specifications
-  if (!is.character(path_lookup_intervention) || length(path_lookup_intervention) != 1) {
-    stop("path_lookup_intervention must be a single object string.")
-  }
 
-  if (!file.exists(path_lookup_intervention)) {
-    stop("File specified in path_lookup_intervention does not exist.")
+  if (!is.data.frame(lookup_intervention)) {
+    stop("File specified in lookup_intervention is not a data frame.")
   }
 
   if (!is.character(intervention_level) || length(intervention_level) != 1) {

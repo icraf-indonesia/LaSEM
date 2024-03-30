@@ -6,7 +6,7 @@
 #' @param parameter_names A vector of parameter names corresponding to each raster layer in the list.
 #'
 #' @return A SpatRaster object representing the stacked raster layers with variable names set.
-#' @importFrom terra rast
+#' @importFrom terra rast names varnames
 #' @importFrom stats setNames
 #' @export
 #'
@@ -28,7 +28,7 @@ stack_raster_layers <- function(raster_list, parameter_names) {
   stacked_raster_factors <- rast(named_raster_list)
 
   # Set variable names of the stacked raster object
-  varnames(stacked_raster_factors) <- names(stacked_raster_factors)
+  #varnames(stacked_raster_factors) <- names(stacked_raster_factors)
 
   return(stacked_raster_factors)
 }

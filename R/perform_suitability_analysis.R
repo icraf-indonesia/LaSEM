@@ -30,6 +30,8 @@ perform_suitability_analysis <-
   function(harmonised_rasters,
            suitability_parameter,
            lookup_intervention) {
+
+
     # Check input classes
     stopifnot(
       inherits(harmonised_rasters, "SpatRaster"),

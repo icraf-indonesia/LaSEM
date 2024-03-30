@@ -17,22 +17,17 @@
 #'   \item{suitability_attr}{A dataframe containing attributes for each suitability category.}
 #'   \item{suitability_by_factors}{A list of SpatRaster objects for individual suitability factors.}
 #' }
-#' @importFrom terra freq cats as.polygons subset
+#' @importFrom terra freq cats as.polygons subset activeCat levels
 #' @importFrom dplyr select left_join mutate group_by summarise pull filter row_number rowwise rename pick
 #' @importFrom tidyr unnest_wider unnest_longer
 #' @importFrom sf st_as_sf
 #' @importFrom purrr map map2
 #' @importFrom rlang .data
-#' @importFrom tibble as_tibble
+#' @importFrom tibble as_tibble tibble
 #' @export
 #'
 #' @examples
 #' \dontrun{
-#'   library(terra)
-#'   library(dplyr)
-#'   library(tidyr)
-#'   library(sf)
-#'
 #'   # Assuming suitability_factors and crop_suitability are already defined
 #'   suitability_results <- process_suitability(suitability_factors, crop_suitability)
 #'   View(suitability_results$suitability_raster)
@@ -73,7 +68,9 @@ process_suitability <- function(suitability_factors, crop_suitability) {
 
   # Step 6: Classify Suitability of Each Predictor
   # Applies predefined functions to classify and stack suitability factors.
-  suitability_factors_reclass <- classify_and_stack_suitability_factors(stacked_raster = suitability_factors, suitability_data = crop_suitability)
+  suitability_factors_reclass <- classify_and_stack_suitability_factors(
+    stacked_raster = suitability_factors,
+    suitability_data = crop_suitability)
 
   # Step 7: Combine Suitability Rasters
   # Concatenates the levels of all the suitability rasters into one.
@@ -122,7 +119,7 @@ process_suitability <- function(suitability_factors, crop_suitability) {
   # Step 10: Update Levels of the Suitability Raster
   # Updates the categorical levels of the suitability raster based on the attribute table.
   levels(suitability_raster) <- as.data.frame(suitability_attr)
-  activeCat(suitability_raster) <- "ID"
+  terra::activeCat(suitability_raster) <- "ID"
 
   # Step 11: Convert Raster to Polygons and Join with Attribute Table
   # Converts the raster data into polygon format and merges it with the attribute table.
