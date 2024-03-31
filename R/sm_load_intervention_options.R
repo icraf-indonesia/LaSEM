@@ -69,6 +69,7 @@ interventionLookupServer <- function(id, submittedData) {
     # Observe submit button clicks in module servers
     observeEvent(input$submitInterventionLookup, {
       submittedData$interventionLookup <- interventionData()
+      showNotification("Intervention Lookup data has been uploaded.", type = "message")
     })
 
   })
