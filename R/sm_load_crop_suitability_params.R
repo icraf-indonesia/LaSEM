@@ -69,10 +69,6 @@ cropSuitabilityParamsServer <- function(id, submittedData) {
       cropSuitabilityData()[info$row, info$col] <<- info$value
     })
 
-    # Observe submit button clicks in module servers
-    observeEvent(input$submitCropParams, {
-      submittedData$cropParams <- cropSuitabilityData()
-    })
 
     # Validate crop name input
     cropNameValid <- reactive({
@@ -87,6 +83,7 @@ cropSuitabilityParamsServer <- function(id, submittedData) {
       }
     })
 
+    # Observe submit button clicks in module servers
     observeEvent(input$submitCropParams, {
       if (cropNameValid()) {
         submittedData$cropParams <- cropSuitabilityData()
