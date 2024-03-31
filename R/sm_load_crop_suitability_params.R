@@ -11,11 +11,13 @@ cropSuitabilityParamsUI <- function(id) {
   tagList(
     sidebarLayout(
       sidebarPanel(
+        textInput(NS(id, "cropName"), "Crop Name", placeholder = "Enter the name of the crop"),
         fileInput(NS(id, "cropSuitabilityData"), "Upload Crop Suitability Parameters (CSV)",
                   accept = c("text/csv", "text/comma-separated-values,text/plain", ".csv")
         ),
         checkboxInput(NS(id, "editableTable"), "Editable Table", value = FALSE),
-        actionButton(NS(id, "submitCropParams"), "Submit Crop Parameters")
+        actionButton(NS(id, "submitCropParams"), "Submit Crop Parameters"),
+        uiOutput(NS(id, "cropNameCheck"))
       ),
       mainPanel(
         DTOutput(NS(id, "cropSuitabilityTable"))
@@ -70,6 +72,29 @@ cropSuitabilityParamsServer <- function(id, submittedData) {
     # Observe submit button clicks in module servers
     observeEvent(input$submitCropParams, {
       submittedData$cropParams <- cropSuitabilityData()
+    })
+
+    # Validate crop name input
+    cropNameValid <- reactive({
+      input$cropName != "" && !grepl("^\\d", input$cropName)
+    })
+
+    output$cropNameCheck <- renderUI({
+      if (cropNameValid()) {
+        icon("check", class = "text-success")
+      } else {
+        ""
+      }
+    })
+
+    observeEvent(input$submitCropParams, {
+      if (cropNameValid()) {
+        submittedData$cropParams <- cropSuitabilityData()
+        submittedData$cropName <- input$cropName
+        showNotification("Crop Parameters submitted successfully!", type = "message")
+      } else {
+        showNotification("Please enter a valid crop name.", type = "error")
+      }
     })
 
   })

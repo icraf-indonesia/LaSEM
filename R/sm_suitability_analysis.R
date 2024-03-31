@@ -38,8 +38,13 @@ suitabilityAnalysisServer <- function(id, submittedData) {
   moduleServer(id, function(input, output, session) {
     # Perform suitability analysis using the submitted data
     suitabilityResults <- reactive({
-      req(submittedData$soilClimateData, submittedData$cropParams, submittedData$interventionLookup)
-
+      req(
+        submittedData$soilClimateData,
+        submittedData$cropParams,
+        submittedData$interventionLookup,
+        submittedData$siteLocation,
+        submittedData$cropName
+      )
       perform_suitability_analysis(
         harmonised_rasters = submittedData$soilClimateData,
         suitability_parameter = submittedData$cropParams,

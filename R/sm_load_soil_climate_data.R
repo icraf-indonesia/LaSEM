@@ -12,12 +12,14 @@ soilClimateDataUI <- function(id) {
   tagList(
     sidebarLayout(
       sidebarPanel(
+        textInput(NS(id, "siteLocation"), "Site Location", placeholder = "Enter the location or area of analysis"),
         fileInput(NS(id, "soilClimateData"), "Upload Lookup Table of Soil and Climate Data (CSV)",
                   accept = c("text/csv", "text/comma-separated-values,text/plain", ".csv")
         ),
         checkboxInput(NS(id, "editableTable"), "Editable Table", value = FALSE),
         actionButton(NS(id, "visualizeRasters"), "Visualize Rasters"),
-        actionButton(NS(id, "submitSoilClimateData"), "Submit Soil Climate Data")
+        actionButton(NS(id, "submitSoilClimateData"), "Submit Soil Climate Data"),
+        uiOutput(NS(id, "siteLocationCheck"))
       ),
       mainPanel(
         tabsetPanel(
@@ -99,6 +101,30 @@ soilClimateDataServer <- function(id, submittedData) {
       req(stackedRasters())
       terra::plot(stackedRasters())
     })
+
+    # Validate site location input
+    siteLocationValid <- reactive({
+      input$siteLocation != "" && !grepl("^\\d", input$siteLocation)
+    })
+
+    output$siteLocationCheck <- renderUI({
+      if (siteLocationValid()) {
+        icon("check", class = "text-success")
+      } else {
+        ""
+      }
+    })
+
+    observeEvent(input$submitSoilClimateData, {
+      if (siteLocationValid()) {
+        submittedData$soilClimateData <- filteredData()
+        submittedData$siteLocation <- input$siteLocation
+        showNotification("Soil Climate Data submitted successfully!", type = "message")
+      } else {
+        showNotification("Please enter a valid site location.", type = "error")
+      }
+    })
+
 
     observeEvent(input$submitSoilClimateData, {
       submittedData$soilClimateData <- stackedRasters()
