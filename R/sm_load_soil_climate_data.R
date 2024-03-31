@@ -82,18 +82,13 @@ soilClimateDataServer <- function(id, submittedData) {
         dplyr::filter(availability %in% "Yes")
     })
 
-    # Reactive expression for loaded rasters
-    loadedRasters <- eventReactive(input$visualizeRasters, {
-      req(filteredData())
-      withProgress(message = "Loading rasters", {
-        read_raster_files(filteredData())
-      })
-    })
-
-    # Reactive expression for stacked rasters
+    # Reactive expression for loaded and stacked rasters
     stackedRasters <- reactive({
-      req(loadedRasters())
-      stack_raster_layers(loadedRasters(), filteredData()$parameter_name)
+      req(filteredData())
+      withProgress(message = "Loading and stacking rasters", {
+        rasters <- read_raster_files(filteredData())
+        stack_raster_layers(rasters, filteredData()$parameter_name)
+      })
     })
 
     # Render the raster plot
@@ -116,19 +111,14 @@ soilClimateDataServer <- function(id, submittedData) {
     })
 
     observeEvent(input$submitSoilClimateData, {
+      req(stackedRasters())
       if (siteLocationValid()) {
-        submittedData$soilClimateData <- filteredData()
+        submittedData$soilClimateData <- stackedRasters()
         submittedData$siteLocation <- input$siteLocation
         showNotification("Soil Climate Data submitted successfully!", type = "message")
       } else {
         showNotification("Please enter a valid site location.", type = "error")
       }
-    })
-
-
-    observeEvent(input$submitSoilClimateData, {
-      submittedData$soilClimateData <- stackedRasters()
-      showNotification("Soil Climate Data submitted successfully!", type = "message")
     })
 
   })
