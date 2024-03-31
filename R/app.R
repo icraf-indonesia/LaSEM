@@ -22,7 +22,8 @@ ALSA_app <- function(...) {
     ),
     navbarMenu(
       "Analysis",
-      tabPanel("Suitability Analysis", suitabilityAnalysisUI("suitabilityAnalysis"))
+      tabPanel("Suitability Analysis",
+               suitabilityAnalysisUI("suitabilityAnalysis"))
 
     )
 
@@ -34,7 +35,9 @@ ALSA_app <- function(...) {
     submittedData <- reactiveValues(
       soilClimateData = NULL,
       cropParams = NULL,
-      interventionLookup = NULL
+      interventionLookup = NULL,
+      siteLocation = NULL,
+      cropName = NULL
     )
 
     soilClimateDataServer("soilClimateData", submittedData)
