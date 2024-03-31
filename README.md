@@ -1,35 +1,15 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# ALSA
+# Agricultural Land Suitability Analysis (ALSA)
 
 <!-- badges: start -->
 <!-- badges: end -->
 
-# Agricultural Land Suitability Analysis (ALSA)
 
-The Agricultural Land Suitability Analysis (ALSA) is a modular R-based
-Shiny app for a decision-support system for conducting agricultural land
-suitability analysis. This early version of the Shiny app focuses on the
-suitability analysis for biophysical factors. The application guides
-users in collecting and preparing data to visualize suitability maps of
-certain crops on an interactive map, thus bundling the workflows into a
-single, streamlined interface.
+The Agricultural Land Suitability Analysis (ALSA) is a modular R-based Shiny app that serves as a decision-support system for conducting agricultural land suitability analysis. This early version focuses on suitability analysis for biophysical factors, guiding users in collecting and preparing data to visualize suitability maps of crops on an interactive map. Built upon the theory of land evaluation and suitability assessment (FAO, 1976; FAO, 2007), ALSA's main feature is its spatially-explicit functionality and streamlined interface, which automatically evaluates land suitability based on biophysical factors using the FAO framework.
 
-The main feature of ALSA is its spatially-explicit functionality and
-streamlined interface, which allows it to automatically evaluate land
-suitability based on biophysical factors of specific areas using the FAO
-framework. This application is built upon the theory of land evaluation
-and suitability assessment (FAO, 1976; FAO, 2007).  
-
-ALSA aims to provide a user-friendly interface that broadens the
-potential user base for land suitability analysis. While there may be
-other packages available for evaluating land suitability, ALSA is one of
-the first open-source apps that we are aware of to offer a streamlined
-and accessible interface for this purpose. However, some familiarity
-with GIS is still needed for preparing the inputs. Please note that the
-package is currently under development and only available from the
-GitHub repository.
+ALSA aims to provide a user-friendly interface that broadens the potential user base for land suitability analysis. While other packages for evaluating land suitability may exist, ALSA is one of the first known open-source apps to offer a streamlined and accessible interface for this purpose. However, some familiarity with GIS is still needed for preparing inputs. Please note that the package is currently under development and only available from the GitHub repository.
 
 ## Installation
 
