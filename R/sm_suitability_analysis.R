@@ -36,15 +36,33 @@ suitabilityAnalysisUI <- function(id) {
 #' @export
 suitabilityAnalysisServer <- function(id, submittedData) {
   moduleServer(id, function(input, output, session) {
+    # Check if the required data is available
+    is_data_available <- reactive({
+      all_data_available <- !is.null(submittedData$soilClimateData) &&
+        !is.null(submittedData$cropParams) &&
+        !is.null(submittedData$interventionLookup) &&
+        !is.null(submittedData$siteLocation) &&
+        !is.null(submittedData$cropName)
+
+      if (!all_data_available) {
+        showNotification(
+          ui = tagList(
+            h4("Incomplete Data Upload"),
+            p("Please complete the upload data tabs to perform the suitability analysis.")
+          ),
+          duration = NULL,
+          type = "error",
+          closeButton = TRUE,
+          id = "incomplete-data-notification"
+        )
+      }
+
+      all_data_available
+    })
+
     # Perform suitability analysis using the submitted data
     suitabilityResults <- reactive({
-      req(
-        submittedData$soilClimateData,
-        submittedData$cropParams,
-        submittedData$interventionLookup,
-        submittedData$siteLocation,
-        submittedData$cropName
-      )
+      req(is_data_available())
       perform_suitability_analysis(
         harmonised_rasters = submittedData$soilClimateData,
         suitability_parameter = submittedData$cropParams,
