@@ -1,12 +1,11 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# ALSA
+# Agricultural Land Suitability Analysis (ALSA)
 
 <!-- badges: start -->
 <!-- badges: end -->
 
-# Agricultural Land Suitability Analysis (ALSA)
 
 The Agricultural Land Suitability Analysis (ALSA) is a modular R-based
 Shiny app for a decision-support system for conducting agricultural land
