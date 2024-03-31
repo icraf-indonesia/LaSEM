@@ -10,23 +10,30 @@
 #' @importFrom shiny NS tagList tabsetPanel tabPanel plotOutput  downloadButton
 #' @importFrom shiny  renderPlot downloadHandler
 #' @importFrom shiny req reactive moduleServer
-#' @importFrom leaflet leaflet addTiles addPolygons addLegend
-#' @importFrom leaflet leafletOutput renderLeaflet
+#' @importFrom leaflet leaflet addTiles addPolygons addLegend addProviderTiles labelOptions
+#' @importFrom leaflet leafletOutput renderLeaflet hideGroup addLayersControl layersControlOptions
 #' @importFrom DT datatable renderDT DTOutput
-#' @importFrom sf write_sf
+#' @importFrom sf write_sf st_as_sfc st_bbox
 #' @importFrom terra writeRaster
+#' @importFrom shinycssloaders withSpinner
 #' @importFrom utils zip
 #'
 #' @export
 suitabilityAnalysisUI <- function(id) {
   tagList(
+    fluidRow(
+      column(12,
+             h2(textOutput(NS(id, "title")), style = "font-weight: bold;"),
+             h4(textOutput(NS(id, "subtitle")), style = "color: #888;")
+      )
+    ),
     tabsetPanel(
       tabPanel("Suitability Map", leafletOutput(NS(id, "suitabilityMap"))),
-      tabPanel("Suitability by Factors", plotOutput(NS(id, "suitabilityFactors"))),
-      tabPanel("Suitability Polygon", DTOutput(NS(id, "suitabilityPolygon"))),
+      tabPanel("Suitability Map by Factors", plotOutput(NS(id, "suitabilityFactors"))),
+      tabPanel("Attribute Table", DTOutput(NS(id, "suitabilityPolygon"))),
       tabPanel("Download Results", downloadButton(NS(id, "downloadResults"), "Download Results"))
     )
-  )
+    )
 }
 
 #' @rdname suitabilityAnalysisUI
@@ -60,6 +67,20 @@ suitabilityAnalysisServer <- function(id, submittedData) {
       all_data_available
     })
 
+    # Expose is_data_available to the UI
+    output$is_data_available <- reactive(is_data_available())
+
+    # Render the title and subtitle
+    output$title <- renderText({
+      req(submittedData$cropName)
+      paste("Land Suitability Analysis of", submittedData$cropName)
+    })
+
+    output$subtitle <- renderText({
+      req(submittedData$siteLocation)
+      paste("in", submittedData$siteLocation)
+    })
+
     # Perform suitability analysis using the submitted data
     suitabilityResults <- reactive({
       req(is_data_available())
@@ -71,30 +92,103 @@ suitabilityAnalysisServer <- function(id, submittedData) {
     })
 
     # Display the suitability map
-    output$suitabilityMap <- leaflet::renderLeaflet({
+    output$suitabilityMap <- renderLeaflet({
       req(suitabilityResults())
-      suitability_map <- suitabilityResults()$suitability_polygon
+      suitability_polygon <- suitabilityResults()$suitability_polygon
+
+      # Construct HTML strings for labels on the map with suitability information
+      suitability_polygon$label_content <- with(
+        suitability_polygon,
+        paste0(
+          "<strong>Suitability Actual:</strong> ",
+          suitability,
+          "<br><strong>Max Potential:</strong> ",
+          suitability_potential_high,
+          "<br><strong>Primary Limiting Factor:</strong> ",
+          limiting_factor_actual,
+          "<br><strong>Secondary Limiting Factor:</strong> ",
+          limiting_factor_potential
+        )
+      ) |> lapply(htmltools::HTML) # Convert labels to HTML
 
       # Create a color palette for mapping the 'suitability' variable
       colors <- colorFactor(palette = c("olivedrab", "olivedrab2", "orange", "red"),
                             levels = c("S1", "S2", "S3", "N"), ordered = FALSE)
 
-      leaflet(suitability_map) %>%
-        addTiles() %>%
+      bbox_poly <- st_bbox(suitability_polygon) |>
+        st_as_sfc()
+
+      leaflet(suitability_polygon) |>
+        addProviderTiles("CyclOSM") |>
         addPolygons(
-          fillColor = ~colors(suitability),
+          fillColor = ~ colors(suitability),
           fillOpacity = 1,
           color = "grey",
           weight = 0.1,
-          smoothFactor = 1
-        ) %>%
+          smoothFactor = 1,
+          label = ~ label_content,
+          labelOptions = labelOptions(
+            style = list("font-weight" = "normal", "color" = "black"),
+            textsize = "13px",
+            direction = "auto"
+          ),
+          group = "Aktual"
+        ) |>
+        addPolygons(
+          fillColor = ~ colors(suitability_potential_low),
+          fillOpacity = 1,
+          color = "grey",
+          weight = 0.1,
+          smoothFactor = 1,
+          label = ~ label_content,
+          labelOptions = labelOptions(
+            style = list("font-weight" = "normal", "color" = "black"),
+            textsize = "13px",
+            direction = "auto"
+          ),
+          group = "Low Intervention"
+        ) |>
+        addPolygons(
+          fillColor = ~ colors(suitability_potential_med),
+          fillOpacity = 1,
+          color = "grey",
+          weight = 0.1,
+          smoothFactor = 1,
+          label = ~ label_content,
+          labelOptions = labelOptions(
+            style = list("font-weight" = "normal", "color" = "black"),
+            textsize = "13px",
+            direction = "auto"
+          ),
+          group = "Medium Intervention"
+        ) |>
+        addPolygons(
+          fillColor = ~ colors(suitability_potential_high),
+          fillOpacity = 1,
+          color = "grey",
+          weight = 0.1,
+          smoothFactor = 1,
+          label = ~ label_content,
+          labelOptions = labelOptions(
+            style = list("font-weight" = "normal", "color" = "black"),
+            textsize = "13px",
+            direction = "auto"
+          ),
+          group = "High Intervention"
+        ) |>
         addLegend(
           "bottomright",
           pal = colors,
-          values = ~suitability,
+          values = ~ factor(c(suitability_potential_low, suitability_potential_med, suitability_potential_high),
+                            levels = c("S1", "S2", "S3", "N")),
           title = "Suitability Level",
           opacity = 0.7
-        )
+        ) |>
+        addLayersControl(
+          baseGroups = c("Aktual", "Low Intervention", "Medium Intervention", "High Intervention"),
+          options = layersControlOptions(collapsed = FALSE)
+        ) |>
+        hideGroup(c("Low Intervention", "Medium Intervention", "High Intervention"))
     })
 
     # Display the suitability by factors
