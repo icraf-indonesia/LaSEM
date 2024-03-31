@@ -17,14 +17,13 @@ soilClimateDataUI <- function(id) {
                   accept = c("text/csv", "text/comma-separated-values,text/plain", ".csv")
         ),
         checkboxInput(NS(id, "editableTable"), "Editable Table", value = FALSE),
-        actionButton(NS(id, "visualizeRasters"), "Visualize Rasters"),
         actionButton(NS(id, "submitSoilClimateData"), "Submit Soil Climate Data"),
         uiOutput(NS(id, "siteLocationCheck"))
       ),
       mainPanel(
         tabsetPanel(
           tabPanel("Data Table", DTOutput(NS(id, "dataTable"))),
-          tabPanel("Raster Visualization", plotOutput(NS(id, "rasterPlot")))
+          tabPanel("Preview Maps", plotOutput(NS(id, "rasterPlot")))
         )
       )
     )
