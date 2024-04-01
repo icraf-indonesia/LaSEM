@@ -11,6 +11,8 @@ suitabilityAnalysisServer(id, submittedData)
 }
 \arguments{
 \item{id}{The module ID.}
+
+\item{submittedData}{reactive values to store submitted data}
 }
 \description{
 This module provides a user interface and server logic for performing suitability analysis

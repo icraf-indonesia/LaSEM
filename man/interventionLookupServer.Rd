@@ -8,6 +8,8 @@ interventionLookupServer(id, submittedData)
 }
 \arguments{
 \item{id}{The ID of the module, used to create namespaces for the server elements.}
+
+\item{submittedData}{reactive values to store submitted data}
 }
 \value{
 The server logic for the Intervention Lookup module.
