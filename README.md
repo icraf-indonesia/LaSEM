@@ -42,7 +42,7 @@ ALSA package:
 
 ``` r
    library(remotes)
-   install_github("https://github.com/icraf-indonesia/ALSA")
+   install_github("https://github.com/icraf-indonesia/ALSA"), dependencies = TRUE)
 ```
 
 This will install the ALSA package and its dependencies from the GitHub
