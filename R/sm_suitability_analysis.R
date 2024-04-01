@@ -6,10 +6,11 @@
 #' an option to download the suitability analysis results.
 #'
 #' @param id The module ID.
+#' @param submittedData reactive values to store submitted data
 #'
 #' @importFrom shiny NS tagList tabsetPanel tabPanel plotOutput  downloadButton
-#' @importFrom shiny  renderPlot downloadHandler
-#' @importFrom shiny req reactive moduleServer
+#' @importFrom shiny  renderPlot downloadHandler fluidRow column renderText
+#' @importFrom shiny req reactive moduleServer sliderInput textOutput updateSliderInput
 #' @importFrom leaflet leaflet addTiles addPolygons addLegend addProviderTiles labelOptions
 #' @importFrom leaflet leafletOutput renderLeaflet hideGroup addLayersControl layersControlOptions
 #' @importFrom DT datatable renderDT DTOutput
@@ -17,6 +18,7 @@
 #' @importFrom terra writeRaster
 #' @importFrom shinycssloaders withSpinner
 #' @importFrom utils zip
+#' @importFrom htmltools h2 h4 p
 #'
 #' @export
 suitabilityAnalysisUI <- function(id) {

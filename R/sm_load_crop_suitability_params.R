@@ -32,67 +32,53 @@ cropSuitabilityParamsUI <- function(id) {
 #' This module server handles the logic for uploading and managing crop suitability parameters.
 #'
 #' @param id The ID of the module, used to create namespaces for the server elements.
+#' @param submittedData reactive values to store submitted data
 #'
 #' @return The server logic for the Crop Suitability Parameters module.
 #'
-#' @importFrom shiny moduleServer reactive observeEvent
+#' @importFrom shiny moduleServer reactive observeEvent reactiveVal
+#' @importFrom shiny showNotification
 #' @importFrom tools file_ext
-#' @importFrom DT renderDT
+#' @importFrom DT renderDT datatable
 #' @importFrom readr read_csv
 #'
 #' @export
 cropSuitabilityParamsServer <- function(id, submittedData) {
   moduleServer(id, function(input, output, session) {
-    # Reactive expression for the uploaded crop suitability parameters CSV file
-    cropSuitabilityData <- reactive({
-      req(input$cropSuitabilityData)
+    # Create a reactive value to store the crop suitability data
+    cropSuitabilityDataReactive <- reactiveVal(NULL)
 
+    # Observe changes in the uploaded crop suitability parameters CSV file
+    observeEvent(input$cropSuitabilityData, {
       # Validate and read the uploaded file
-      ext <- tools::file_ext(input$cropSuitabilityData$name)
+      ext <- file_ext(input$cropSuitabilityData$name)
       if (ext != "csv") {
         showNotification("Please upload a CSV file.", type = "error")
         return(NULL)
       }
 
-      read_csv(input$cropSuitabilityData$datapath)
+      cropSuitabilityData <- read_csv(input$cropSuitabilityData$datapath)
+      cropSuitabilityDataReactive(cropSuitabilityData)
     })
 
     # Render the crop suitability parameters data table
     output$cropSuitabilityTable <- renderDT({
-      req(cropSuitabilityData())
-      datatable(cropSuitabilityData(), editable = input$editableTable)
+      datatable(cropSuitabilityDataReactive(), editable = input$editableTable)
     })
 
     # Observe changes in the editable table and update the data
     observeEvent(input$cropSuitabilityTable_cell_edit, {
       info <- input$cropSuitabilityTable_cell_edit
-      cropSuitabilityData()[info$row, info$col] <<- info$value
+      cropSuitabilityData <- cropSuitabilityDataReactive()
+      cropSuitabilityData[info$row, info$col] <- info$value
+      cropSuitabilityDataReactive(cropSuitabilityData)
     })
 
-
-    # Validate crop name input
-    cropNameValid <- reactive({
-      input$cropName != "" && !grepl("^\\d", input$cropName)
-    })
-
-    output$cropNameCheck <- renderUI({
-      if (cropNameValid()) {
-        icon("check", class = "text-success")
-      } else {
-        ""
-      }
-    })
-
-    # Observe submit button clicks in module servers
+    # Return the reactive crop suitability data when the "Submit Crop Parameters" button is clicked
     observeEvent(input$submitCropParams, {
-      if (cropNameValid()) {
-        submittedData$cropParams <- cropSuitabilityData()
-        submittedData$cropName <- input$cropName
-        showNotification("Crop Parameters submitted successfully!", type = "message")
-      } else {
-        showNotification("Please enter a valid crop name.", type = "error")
-      }
+      submittedData$cropParams <- cropSuitabilityDataReactive()
+      submittedData$cropName <- input$cropName
+      showNotification("Crop Parameters submitted successfully!", type = "message")
     })
-
   })
 }

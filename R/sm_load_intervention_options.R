@@ -29,10 +29,11 @@ interventionLookupUI <- function(id) {
 #' This module server handles the logic for uploading and managing intervention lookup tables.
 #'
 #' @param id The ID of the module, used to create namespaces for the server elements.
+#' @param submittedData reactive values to store submitted data
 #'
 #' @return The server logic for the Intervention Lookup module.
 #'
-#' @importFrom shiny moduleServer reactive observeEvent
+#' @importFrom shiny moduleServer reactive observeEvent reactiveVal
 #' @importFrom tools file_ext
 #' @importFrom DT renderDT
 #' @importFrom readr read_csv
@@ -40,37 +41,40 @@ interventionLookupUI <- function(id) {
 #' @export
 interventionLookupServer <- function(id, submittedData) {
   moduleServer(id, function(input, output, session) {
-    # Reactive expression for the uploaded intervention lookup table CSV file
-    interventionData <- reactive({
-      req(input$interventionData)
+    # Create a reactive value to store the intervention lookup data
+    interventionDataReactive <- reactiveVal(NULL)
 
+    # Observe changes in the uploaded intervention lookup table CSV file
+    observeEvent(input$interventionData, {
       # Validate and read the uploaded file
-      ext <- tools::file_ext(input$interventionData$name)
+      ext <- file_ext(input$interventionData$name)
       if (ext != "csv") {
         showNotification("Please upload a CSV file.", type = "error")
         return(NULL)
       }
 
-      readr::read_csv(input$interventionData$datapath)
+      interventionData <- read_csv(input$interventionData$datapath)
+      interventionDataReactive(interventionData)
     })
 
     # Render the intervention lookup table
     output$interventionTable <- renderDT({
-      req(interventionData())
-      datatable(interventionData(), editable = input$editableTable)
+      datatable(interventionDataReactive(), editable = input$editableTable)
     })
 
     # Observe changes in the editable table and update the data
     observeEvent(input$interventionTable_cell_edit, {
       info <- input$interventionTable_cell_edit
-      interventionData()[info$row, info$col] <<- info$value
+      interventionData <- interventionDataReactive()
+      interventionData[info$row, info$col] <- info$value
+      interventionDataReactive(interventionData)
     })
 
-    # Observe submit button clicks in module servers
+    # Return the reactive intervention lookup data when the "Submit Intervention Lookup" button is clicked
     observeEvent(input$submitInterventionLookup, {
-      submittedData$interventionLookup <- interventionData()
-      showNotification("Intervention Lookup data has been uploaded.", type = "message")
+      submittedData$interventionLookup <- interventionDataReactive()
+      print(submittedData$interventionLookup)
+      showNotification("Intervention Lookup submitted successfully!", type = "message")
     })
-
   })
 }

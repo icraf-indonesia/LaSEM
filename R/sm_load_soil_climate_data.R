@@ -3,7 +3,9 @@
 #' This module provides a user interface for uploading and visualizing soil and climate data.
 #'
 #' @param id The ID of the module, used to create namespaces for the UI elements.
-#' @importFrom shiny tagList sidebarLayout sidebarPanel fileInput NS checkboxInput actionButton mainPanel tabsetPanel tabPanel plotOutput
+#' @importFrom shiny tagList sidebarLayout sidebarPanel fileInput NS moduleServer
+#' @importFrom shiny uiOutput checkboxInput actionButton mainPanel tabsetPanel tabPanel
+#' @importFrom shiny plotOutput textInput
 #' @importFrom DT DTOutput
 #' @return A tagList containing the UI elements for the Soil and Climate Data module.
 #'
@@ -35,10 +37,12 @@ soilClimateDataUI <- function(id) {
 #' This module server handles the logic for uploading, processing, and visualizing soil and climate data.
 #'
 #' @param id The ID of the module, used to create namespaces for the server elements.
+#' @param submittedData reactive values to store submitted data
 #'
 #' @return The server logic for the Soil and Climate Data module.
 #'
-#' @importFrom shiny moduleServer reactive reactiveVal observeEvent req showNotification
+#' @importFrom shiny moduleServer reactive reactiveVal observeEvent
+#' @importFrom shiny req showNotification withProgress renderPlot eventReactive
 #' @importFrom tools file_ext
 #' @importFrom DT datatable renderDT
 #' @importFrom dplyr filter
@@ -48,10 +52,11 @@ soilClimateDataUI <- function(id) {
 #' @export
 soilClimateDataServer <- function(id, submittedData) {
   moduleServer(id, function(input, output, session) {
-    # Reactive expression for the uploaded CSV file
-    csvData <- reactive({
-      req(input$soilClimateData)
+    # Create a reactive value to store the soil climate data
+    csvDataReactive <- reactiveVal(NULL)
 
+    # Observe changes in the uploaded CSV file
+    observeEvent(input$soilClimateData, {
       # Validate and read the uploaded file
       ext <- tools::file_ext(input$soilClimateData$name)
       if (ext != "csv") {
@@ -59,66 +64,63 @@ soilClimateDataServer <- function(id, submittedData) {
         return(NULL)
       }
 
-      read_csv(input$soilClimateData$datapath)
+      csvData <- read.csv(input$soilClimateData$datapath, stringsAsFactors = FALSE)
+      csvDataReactive(csvData)
     })
 
     # Render the data table
     output$dataTable <- renderDT({
-      req(csvData())
-      datatable(csvData(), editable = input$editableTable)
+      datatable(csvDataReactive(), editable = input$editableTable)
     })
 
     # Observe changes in the editable table and update the data
     observeEvent(input$dataTable_cell_edit, {
       info <- input$dataTable_cell_edit
-      csvData()[info$row, info$col] <<- info$value
+      csvData <- csvDataReactive()
+      csvData[info$row, info$col] <- info$value
+      csvDataReactive(csvData)
     })
 
-    # Reactive expression for filtered climate_soil_data
+    # Create a reactive expression for filtered soil climate data
     filteredData <- reactive({
-      req(csvData())
-      csvData() %>%
-        dplyr::filter(availability %in% "Yes")
+      csvData <- csvDataReactive()
+      if (!is.null(csvData)) {
+        csvData %>%
+          dplyr::filter(availability %in% "Yes")
+      }
     })
 
-    # Reactive expression for loaded and stacked rasters
-    stackedRasters <- reactive({
+    # Reactive expression for loaded rasters
+    loadedRasters <- reactive({
       req(filteredData())
-      withProgress(message = "Loading and stacking rasters", {
-        rasters <- read_raster_files(filteredData())
-        stack_raster_layers(rasters, filteredData()$parameter_name)
-      })
+      read_raster_files(filteredData())
+    })
+
+    # Reactive expression for stacked rasters
+    stackedRasters <- reactive({
+      req(loadedRasters())
+      stack_raster_layers(loadedRasters(), filteredData()$parameter_name)
     })
 
     # Render the raster plot
     output$rasterPlot <- renderPlot({
       req(stackedRasters())
-      terra::plot(stackedRasters())
+      plot(stackedRasters())
     })
 
-    # Validate site location input
-    siteLocationValid <- reactive({
-      input$siteLocation != "" && !grepl("^\\d", input$siteLocation)
-    })
-
-    output$siteLocationCheck <- renderUI({
-      if (siteLocationValid()) {
-        icon("check", class = "text-success")
-      } else {
-        ""
-      }
-    })
-
+    # Observe the submit button click event
     observeEvent(input$submitSoilClimateData, {
       req(stackedRasters())
-      if (siteLocationValid()) {
+      if (!is.null(csvDataReactive())) {
         submittedData$soilClimateData <- stackedRasters()
         submittedData$siteLocation <- input$siteLocation
+        print(submittedData$siteLocation)
+        print(submittedData$soilClimateData)
         showNotification("Soil Climate Data submitted successfully!", type = "message")
+        updateTabsetPanel(session, "tabset", selected = "Preview Maps")
       } else {
-        showNotification("Please enter a valid site location.", type = "error")
+        showNotification("Please upload a valid CSV file.", type = "error")
       }
     })
-
   })
 }
