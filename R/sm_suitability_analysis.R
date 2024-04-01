@@ -29,7 +29,14 @@ suitabilityAnalysisUI <- function(id) {
     ),
     tabsetPanel(
       tabPanel("Suitability Map", leafletOutput(NS(id, "suitabilityMap"))),
-      tabPanel("Suitability Map by Factors", plotOutput(NS(id, "suitabilityFactors"))),
+      tabPanel("Suitability Map by Factors",
+               fluidRow(
+                 column(12,
+                        sliderInput(NS(id, "factorSlider"), "Select Factor:", min = 1, max = 1, value = 1, step = 1),
+                        plotOutput(NS(id, "suitabilityFactorPlot"))
+                 )
+               )
+      ),
       tabPanel("Attribute Table", DTOutput(NS(id, "suitabilityPolygon"))),
       tabPanel("Download Results", downloadButton(NS(id, "downloadResults"), "Download Results"))
     )
@@ -191,11 +198,20 @@ suitabilityAnalysisServer <- function(id, submittedData) {
         hideGroup(c("Low Intervention", "Medium Intervention", "High Intervention"))
     })
 
-    # Display the suitability by factors
-    output$suitabilityFactors <- renderPlot({
+    # Render individual factor plots
+    output$suitabilityFactorPlot <- renderPlot({
       req(suitabilityResults())
       suitability_by_factors <- suitabilityResults()$suitability_by_factors
-      plot(suitability_by_factors)
+      num_factors <- terra::nlyr(suitability_by_factors)
+
+      # Update the slider input max value based on the number of factors
+      updateSliderInput(session, "factorSlider", max = num_factors)
+
+      # Get the selected factor index from the slider input
+      selected_factor <- input$factorSlider
+
+      # Plot the selected factor
+      plot(suitability_by_factors[[selected_factor]], main = names(suitability_by_factors)[selected_factor])
     })
 
     # Display the suitability polygon data table
