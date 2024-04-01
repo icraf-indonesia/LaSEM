@@ -2,6 +2,14 @@
 
 library(shiny)
 
+#' Agricultural Land Suitability Analysis (ALSA) Shiny App
+#'
+#' This function creates a Shiny application for conducting agricultural land suitability analysis.
+#'
+#' @param ... Additional arguments to pass to the Shiny app.
+#'
+#' @importFrom shiny navbarPage navbarMenu tabPanel reactiveValues shinyApp
+#' @export
 ALSA_app <- function(...) {
   ui <- navbarPage(
     "Agricultural Land Suitability Analysis (ALSA)",
