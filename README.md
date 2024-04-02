@@ -42,7 +42,11 @@ ALSA package:
 
 ``` r
    library(remotes)
-   install_github("https://github.com/icraf-indonesia/ALSA"), dependencies = TRUE)
+   # complete installation, including R packages dependencies (reccomended)
+   install_github("https://github.com/icraf-indonesia/ALSA", dependencies = TRUE)
+
+   # minimal installation
+   # install_github("https://github.com/icraf-indonesia/ALSA")
 ```
 
 This will install the ALSA package and its dependencies from the GitHub
@@ -62,6 +66,8 @@ ALSA_app()
 
 The user interface for the ALSA app will appear in your default web
 browser.
+<img width="591" alt="image" src="https://github.com/icraf-indonesia/ALSA/assets/14798903/eb5b67c8-2941-4288-b4a1-ccc8f846d085">
+
 
 ## Usage
 
