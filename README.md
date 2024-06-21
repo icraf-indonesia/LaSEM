@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# Agricultural Land Suitability Analysis (LaSEM)
+# Land Suitability Evaluation Module (LaSEM)
 
 <!-- badges: start -->
 <!-- badges: end -->
