@@ -1,19 +1,19 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# Agricultural Land Suitability Analysis (ALSA)
+# Agricultural Land Suitability Analysis (LaSEM)
 
 <!-- badges: start -->
 <!-- badges: end -->
 
 
-The Agricultural Land Suitability Analysis (ALSA) is a modular R-based Shiny app that serves as a decision-support system for conducting agricultural land suitability analysis. This early version focuses on suitability analysis for biophysical factors, guiding users in collecting and preparing data to visualize suitability maps of crops on an interactive map. Built upon the theory of land evaluation and suitability assessment (FAO, 1976; FAO, 2007), ALSA's main feature is its spatially-explicit functionality and streamlined interface, which automatically evaluates land suitability based on biophysical factors using the FAO framework.
+Land Suitability Evaluation Module (LaSEM) is a modular R-based Shiny app that serves as a decision-support system for conducting agricultural land suitability analysis. This early version focuses on suitability analysis for biophysical factors, guiding users in collecting and preparing data to visualize suitability maps of crops on an interactive map. Built upon the theory of land evaluation and suitability assessment (FAO, 1976; FAO, 2007), LaSEM's main feature is its spatially-explicit functionality and streamlined interface, which automatically evaluates land suitability based on biophysical factors using the FAO framework.
 
-ALSA aims to provide a user-friendly interface that broadens the potential user base for land suitability analysis. While other packages for evaluating land suitability may exist, ALSA is one of the first known open-source apps to offer a streamlined and accessible interface for this purpose. However, some familiarity with GIS is still needed for preparing inputs. Please note that the package is currently under development and only available from the GitHub repository.
+LaSEM aims to provide a user-friendly interface that broadens the potential user base for land suitability analysis. While other packages for evaluating land suitability may exist, LaSEM is one of the first known open-source apps to offer a streamlined and accessible interface for this purpose. However, some familiarity with GIS is still needed for preparing inputs. Please note that the package is currently under development and only available from the GitHub repository.
 
 ## Installation
 
-To use the ALSA package, you need to have R and RStudio installed on
+To use the LaSEM package, you need to have R and RStudio installed on
 your computer.
 
 ### Installing R
@@ -32,10 +32,10 @@ your computer.
 3.  Choose the appropriate installer for your operating system.
 4.  Follow the installation instructions provided.
 
-### Installing ALSA Package
+### Installing LaSEM Package
 
 Once you have R and RStudio installed, follow these steps to install the
-ALSA package:
+LaSEM package:
 
 1.  Open RStudio.
 2.  In the R console, run the following commands:
@@ -43,30 +43,30 @@ ALSA package:
 ``` r
    library(remotes)
    # complete installation, including R packages dependencies (reccomended)
-   install_github("https://github.com/icraf-indonesia/ALSA", dependencies = TRUE)
+   install_github("https://github.com/icraf-indonesia/LaSEM", dependencies = TRUE)
 
    # minimal installation
-   # install_github("https://github.com/icraf-indonesia/ALSA")
+   # install_github("https://github.com/icraf-indonesia/LaSEM")
 ```
 
-This will install the ALSA package and its dependencies from the GitHub
+This will install the LaSEM package and its dependencies from the GitHub
 repository.
 
-After the installation is complete, load the ALSA package:
+After the installation is complete, load the LaSEM package:
 
 ``` r
-library(ALSA)
+library(LaSEM)
 ```
 
-To launch the ALSA Shiny app, run the following command:
+To launch the LaSEM Shiny app, run the following command:
 
 ``` r
-ALSA_app()
+LaSEM_app()
 ```
 
-The user interface for the ALSA app will appear in your default web
+The user interface for the LaSEM app will appear in your default web
 browser.
-<img width="591" alt="image" src="https://github.com/icraf-indonesia/ALSA/assets/14798903/eb5b67c8-2941-4288-b4a1-ccc8f846d085">
+<img width="591" alt="image" src="https://github.com/icraf-indonesia/LaSEM/assets/14798903/eb5b67c8-2941-4288-b4a1-ccc8f846d085">
 
 
 ## Usage
@@ -94,7 +94,7 @@ browser.
 
 ## Contributing
 
-We welcome contributions to the ALSA package. If you encounter any
+We welcome contributions to the LaSEM package. If you encounter any
 issues or have suggestions for improvements, please open an issue on the
 GitHub repository.
 
