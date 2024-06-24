@@ -1,8 +1,8 @@
-# Agricultural Land Suitability Analysis (ALSA) Shiny App
+# Land Suitability Evaluation Module (LaSEM) Shiny App
 
 library(shiny)
 
-#' Agricultural Land Suitability Analysis (ALSA) Shiny App
+#' Land Suitability Evaluation Module (LaSEM) Shiny App
 #'
 #' This function creates a Shiny application for conducting agricultural land suitability analysis.
 #'
@@ -10,9 +10,9 @@ library(shiny)
 #'
 #' @importFrom shiny navbarPage navbarMenu tabPanel reactiveValues shinyApp
 #' @export
-ALSA_app <- function(...) {
+LaSEM_app <- function(...) {
   ui <- navbarPage(
-    "Agricultural Land Suitability Analysis (ALSA)",
+    "Land Suitability Evaluation Module (LaSEM)",
     navbarMenu(
       "Upload Data",
       tabPanel(
