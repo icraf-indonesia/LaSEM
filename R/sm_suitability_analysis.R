@@ -30,7 +30,7 @@ suitabilityAnalysisUI <- function(id) {
       )
     ),
     tabsetPanel(
-      tabPanel("Suitability Map", leafletOutput(NS(id, "suitabilityMap"))),
+      tabPanel("Suitability Map", withSpinner(leafletOutput(NS(id, "suitabilityMap")))),
       tabPanel("Suitability Map by Factors",
                fluidRow(
                  column(12,
@@ -40,7 +40,10 @@ suitabilityAnalysisUI <- function(id) {
                )
       ),
       tabPanel("Attribute Table", DTOutput(NS(id, "suitabilityPolygon"))),
-      tabPanel("Download Results", downloadButton(NS(id, "downloadResults"), "Download Results"))
+      tabPanel("Download Results",
+               downloadButton(NS(id, "downloadShapefile"), "Download Shapefile"),
+               downloadButton(NS(id, "downloadRaster"), "Download Raster"),
+               downloadButton(NS(id, "downloadTable"), "Download Attribute Table"))
     )
     )
 }
@@ -223,24 +226,41 @@ suitabilityAnalysisServer <- function(id, submittedData) {
       datatable(suitability_polygon)
     })
 
-    # Provide an option to download the suitability analysis results
-    output$downloadResults <- downloadHandler(
+    # Provide options to download different sets of files
+    output$downloadShapefile <- downloadHandler(
       filename = function() {
-        paste("suitability_results", Sys.Date(), ".zip", sep = "_")
+        paste("suitability_map", Sys.Date(), ".zip", sep = "_")
       },
       content = function(file) {
-        # Save the suitability analysis results to a temporary directory
+        # Save the suitability map to a temporary directory
         tempdir <- tempdir()
-
-        # Save the suitability map, polygon, and other results to the temporary directory
+        browser()
         suitability_map <- suitabilityResults()$suitability_polygon
-        write_sf(suitability_map, file.path(tempdir, "suitability_map.shp"))
-
-        suitability_by_factors <- suitabilityResults()$suitability_by_factors
-        writeRaster(suitability_by_factors, file.path(tempdir, "suitability_by_factors.tif"))
+        st_write(suitability_map, file.path(tempdir, "suitability_map.shp"),
+                 append = FALSE)
 
         # Zip the temporary directory and write it to the specified file
         zip(file, tempdir)
+      }
+    )
+
+    output$downloadRaster <- downloadHandler(
+      filename = function() {
+        paste("suitability_by_factors", Sys.Date(), ".tif", sep = "_")
+      },
+      content = function(file) {
+        suitability_by_factors <- suitabilityResults()$suitability_by_factors
+        writeRaster(suitability_by_factors, file, overwrite = TRUE)
+      }
+    )
+
+    output$downloadTable <- downloadHandler(
+      filename = function() {
+        paste("suitability_attr", Sys.Date(), ".csv", sep = "_")
+      },
+      content = function(file) {
+        suitability_attr <- suitabilityResults()$suitability_attr
+        write_csv(suitability_attr, file)
       }
     )
   })
