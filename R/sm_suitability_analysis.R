@@ -85,7 +85,7 @@ suitabilityAnalysisServer <- function(id, submittedData) {
     # Render the title and subtitle
     output$title <- renderText({
       req(submittedData$cropName)
-      paste("Land Suitability Analysis of", submittedData$cropName)
+      paste("Land Suitability Evaluation of", submittedData$cropName)
     })
 
     output$subtitle <- renderText({
