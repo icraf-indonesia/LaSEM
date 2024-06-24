@@ -66,7 +66,8 @@ LaSEM_app()
 
 The user interface for the LaSEM app will appear in your default web
 browser.
-<img width="591" alt="image" src="https://github.com/icraf-indonesia/LaSEM/assets/14798903/eb5b67c8-2941-4288-b4a1-ccc8f846d085">
+![Picture1](https://github.com/icraf-indonesia/LaSEM/assets/14798903/e41bb0bd-7a6d-48de-ac89-bb35e2a6ff68)
+
 
 
 ## Usage
