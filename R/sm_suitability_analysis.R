@@ -17,7 +17,6 @@
 #' @importFrom sf write_sf st_as_sfc st_bbox
 #' @importFrom terra writeRaster
 #' @importFrom shinycssloaders withSpinner
-#' @importFrom utils zip
 #' @importFrom htmltools h2 h4 p
 #'
 #' @export
@@ -51,6 +50,8 @@ suitabilityAnalysisUI <- function(id) {
 #' @rdname suitabilityAnalysisUI
 #' @importFrom dplyr left_join mutate case_when
 #' @importFrom leaflet colorFactor
+#' @importFrom zip zip
+#' @importFrom readr write_csv
 #'
 #' @export
 suitabilityAnalysisServer <- function(id, submittedData) {
@@ -240,7 +241,7 @@ suitabilityAnalysisServer <- function(id, submittedData) {
                  append = FALSE)
         shp_files <- list.files(path = tempdir, pattern = "suitability_map", full.names = TRUE)
         # Zip the temporary directory and write it to the specified file
-        zip(file,files=shp_files)
+        zip::zipr(file,files=shp_files, include_directories=FALSE)
       }
     )
 
