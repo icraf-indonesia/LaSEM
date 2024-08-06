@@ -3,6 +3,7 @@ jeruk,Citrus aurantium,S1,clim_dry_months,2.5-4,bulan
 jeruk,Citrus aurantium,S2,clim_dry_months,4-5,bulan
 jeruk,Citrus aurantium,S3,clim_dry_months,5-6,bulan
 jeruk,Citrus aurantium,N,clim_dry_months,>6,bulan
+jeruk,Citrus aurantium,N,clim_dry_months,2.5<,bulan
 jeruk,Citrus aurantium,S1,clim_humidity,50-90,%
 jeruk,Citrus aurantium,S2,clim_humidity,50<,%
 jeruk,Citrus aurantium,S2,clim_humidity,>90,%
