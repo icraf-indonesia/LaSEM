@@ -1,0 +1,74 @@
+---
+title: "minimal_tutorial"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{minimal_tutorial}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(LaSEM)
+library(dplyr)
+library(readr)
+```
+
+```{r}
+siteLocation <- "Kabupaten Bone"
+spatial_climate_soil_input_paths <- "inst/extdata/sample_datasets/bone_regency/lookup_tables/crop_suitability_spatial_input.csv"
+
+cropName <- "Jagung"
+crop_suitability_table_path <- "inst/extdata/crop_parameters/kesesuaian_jagung.csv"
+
+intervention_lookup_path <- "inst/extdata/lookup_tables/lookup_intervention.csv"
+
+```
+
+
+# Read climate and soil raster
+
+```{r}
+SoilClimateFactors <- read_csv(spatial_climate_soil_input_paths) |> 
+   dplyr::filter(availability %in% "Yes") |> 
+  mutate(raster_path = paste0("inst/", raster_path))
+
+print(SoilClimateFactors)
+
+```
+
+
+```{r}
+stacked_rasters <-SoilClimateFactors |> 
+  read_raster_files() |> 
+  stack_raster_layers(parameter_names =SoilClimateFactors$parameter_name)
+plot(stacked_rasters)
+```
+
+# Read crop climate and soil requirements 
+```{r}
+cropSuitabilityData <- read_csv("inst/extdata/crop_parameters/kesesuaian_jagung.csv")
+print(cropSuitabilityData)
+```
+
+# Load intervention table 
+```{r}
+interventionData <- read_csv(intervention_lookup_path)
+interventionData
+```
+
+# Perform Suitability Analysis
+```{r}
+CropSuit<- perform_suitability_analysis(
+        harmonised_rasters = stacked_rasters,
+        suitability_parameter = cropSuitabilityData,
+        lookup_intervention = interventionData
+      )
+```
+

@@ -3,21 +3,21 @@ ID,parameter,parameter_name,availability,raster_path
 2,Curah Hujan Tahunan,clim_precipitation_tot,Yes,extdata/sample_datasets/bone_regency/raster_files/clim_precipitation_tot.tif
 3,Jumlah Bulan Basah,clim_wet_months_tot,Yes,extdata/sample_datasets/bone_regency/raster_files/clim_wet_months.tif
 4,Kelembapan udara,clim_humidity,Yes,extdata/sample_datasets/bone_regency/raster_files/clim_humidity.tif
-5,Drainase,soil_drainage,No,extdata/sample_datasets/bone_regency/raster_files/hwsd/soil_DRAINAGE.tif
-6,Tekstur,soil_texture,Yes,extdata/sample_datasets/bone_regency/raster_files/hwsd/soil_TEXTURE_USDA.tif
+5,Drainase,soil_drainage,No,extdata/sample_datasets/bone_regency/raster_files/soil_DRAINAGE.tif
+6,Tekstur,soil_texture,Yes,extdata/sample_datasets/bone_regency/raster_files/soil_TEXTURE_USDA.tif
 7,Bahan kasar,soil_coarse_fragments,Yes,extdata/sample_datasets/bone_regency/raster_files/cfvo_0-5cm_mean_bone.tif
 8,Kedalaman tanah,soil_depth,Yes,extdata/sample_datasets/bone_regency/raster_files/soil_depth.tif
 9,Ketebalan,soil_peat_depth,No,NA
 10,Kematangan,soil_peat_maturity,No,NA
 11,KTK tanah,soil_cec,Yes,extdata/sample_datasets/bone_regency/raster_files/cec_0-5cm_mean_bone.tif
-12,Kejenuhan basa,soil_base_saturation,Yes,extdata/sample_datasets/bone_regency/raster_files/hwsd/soil_BSAT.tif
+12,Kejenuhan basa,soil_base_saturation,Yes,extdata/sample_datasets/bone_regency/raster_files/soil_BSAT.tif
 13,pH H2O,soil_ph,Yes,extdata/sample_datasets/bone_regency/raster_files/phh2o_0-5cm_mean_bone.tif
 14,C-organik,soil_organic_c,Yes,extdata/sample_datasets/bone_regency/raster_files/soc_0-5cm_mean_bone.tif
 15,N total,soil_nitrogen,Yes,extdata/sample_datasets/bone_regency/raster_files/nitrogen_0-5cm_mean_bone.tif
 16,P2O5,soil_p2o5,No,NA
 17,K2O,soil_k2o,No,NA
-18,Salinitas,soil_salinity,Yes,extdata/sample_datasets/bone_regency/raster_files/hwsd/soil_ELEC_COND.tif
-19,Alkalinitas/ESP,soil_esp,Yes,extdata/sample_datasets/bone_regency/raster_files/hwsd/soil_ESP.tif
+18,Salinitas,soil_salinity,Yes,extdata/sample_datasets/bone_regency/raster_files/soil_ELEC_COND.tif
+19,Alkalinitas/ESP,soil_esp,Yes,extdata/sample_datasets/bone_regency/raster_files/soil_ESP.tif
 20,Kedalaman sulfidik,soil_sulfidic_depth,No,NA
 21,Lereng,soil_slope,Yes,extdata/sample_datasets/bone_regency/raster_files/slope.tif
 22,Bahaya erosi,soil_erosion_risk,No,NA
