@@ -3,6 +3,7 @@ cengkeh,Eugenia aromatica L.,S1,clim_dry_months,1-2,bulan
 cengkeh,Eugenia aromatica L.,S2,clim_dry_months,2-3,bulan
 cengkeh,Eugenia aromatica L.,S3,clim_dry_months,3-4,bulan
 cengkeh,Eugenia aromatica L.,N,clim_dry_months,>4,bulan
+cengkeh,Eugenia aromatica L.,N,clim_dry_months,1<,bulan
 cengkeh,Eugenia aromatica L.,S1,clim_humidity,70<,%
 cengkeh,Eugenia aromatica L.,S2,clim_humidity,>70,%
 cengkeh,Eugenia aromatica L.,S1,clim_precipitation_tot,1500-2500,mm
