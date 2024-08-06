@@ -43,11 +43,11 @@ classify_suitability_predictors <- function(raster_input, suitability_data) {
     filter(name_parameter %in% names(raster_input))
 
   if (suitability_data[["name_parameter"]][1] == "soil_texture") {
-    if (file.exists(system.file("extdata/lookup_tables/lookup_texture_usda.csv", package = "ALSA"))) {
+    if (file.exists(system.file("extdata/lookup_tables/lookup_texture_usda.csv", package = "LaSEM"))) {
       texture_lookup <- readr::read_csv(
         system.file(
           "extdata/lookup_tables/lookup_texture_usda.csv",
-          package = "ALSA"
+          package = "LaSEM"
         )
       ) |> select(texture_kemtan, TEXTURE_USDA)
 
