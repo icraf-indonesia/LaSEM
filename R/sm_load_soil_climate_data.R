@@ -7,6 +7,7 @@
 #' @importFrom shiny uiOutput checkboxInput actionButton mainPanel tabsetPanel tabPanel
 #' @importFrom shiny plotOutput textInput
 #' @importFrom DT DTOutput
+#' @importFrom utils read.csv
 #' @return A tagList containing the UI elements for the Soil and Climate Data module.
 #'
 #' @export
