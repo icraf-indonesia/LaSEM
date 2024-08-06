@@ -234,13 +234,13 @@ suitabilityAnalysisServer <- function(id, submittedData) {
       content = function(file) {
         # Save the suitability map to a temporary directory
         tempdir <- tempdir()
-        browser()
-        suitability_map <- suitabilityResults()$suitability_polygon
-        st_write(suitability_map, file.path(tempdir, "suitability_map.shp"),
+        suitability_map <- suitabilityResults()$suitability_polygon %>%
+          dplyr::select(ID, suitability, count)
+        sf::st_write(suitability_map, paste0(tempdir, "\\suitability_map.shp"),
                  append = FALSE)
-
+        shp_files <- list.files(path = tempdir, pattern = "suitability_map", full.names = TRUE)
         # Zip the temporary directory and write it to the specified file
-        zip(file, tempdir)
+        zip(file,files=shp_files, extras = "-x")
       }
     )
 
