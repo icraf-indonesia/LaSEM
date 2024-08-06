@@ -3,6 +3,7 @@ karet,Hevea brassiliensis M.A.,S1,clim_dry_months,1-2,bulan
 karet,Hevea brassiliensis M.A.,S2,clim_dry_months,2-3,bulan
 karet,Hevea brassiliensis M.A.,S3,clim_dry_months,3-4,bulan
 karet,Hevea brassiliensis M.A.,N,clim_dry_months,>4,bulan
+karet,Hevea brassiliensis M.A.,N,clim_dry_months,1<,bulan
 karet,Hevea brassiliensis M.A.,S1,clim_precipitation_tot,2500-3000,mm
 karet,Hevea brassiliensis M.A.,S2,clim_precipitation_tot,2000-2500,mm
 karet,Hevea brassiliensis M.A.,S2,clim_precipitation_tot,3000-3500,mm
@@ -87,7 +88,7 @@ karet,Hevea brassiliensis M.A.,S1,soil_surface_rocks,5<,%
 karet,Hevea brassiliensis M.A.,S2,soil_surface_rocks,5-15,%
 karet,Hevea brassiliensis M.A.,S3,soil_surface_rocks,15-40,%
 karet,Hevea brassiliensis M.A.,N,soil_surface_rocks,>40,%
-karet,Hevea brassiliensis M.A.,S1,soil_texture,halus;agakhalus,unitless
-karet,Hevea brassiliensis M.A.,S2,soil_texture,sedang,unitless
-karet,Hevea brassiliensis M.A.,S3,soil_texture,agakkasar,unitless
-karet,Hevea brassiliensis M.A.,N,soil_texture,kasar,unitless
+karet,Hevea brassiliensis M.A.,S1,soil_texture,h_ah,unitless
+karet,Hevea brassiliensis M.A.,S2,soil_texture,s,unitless
+karet,Hevea brassiliensis M.A.,S3,soil_texture,ak,unitless
+karet,Hevea brassiliensis M.A.,N,soil_texture,k_sh,unitless
