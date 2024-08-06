@@ -240,7 +240,7 @@ suitabilityAnalysisServer <- function(id, submittedData) {
                  append = FALSE)
         shp_files <- list.files(path = tempdir, pattern = "suitability_map", full.names = TRUE)
         # Zip the temporary directory and write it to the specified file
-        zip(file,files=shp_files, extras = "-x")
+        zip(file,files=shp_files)
       }
     )
 
