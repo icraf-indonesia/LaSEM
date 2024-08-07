@@ -42,11 +42,7 @@ LaSEM package:
 
 ``` r
    library(remotes)
-   # complete installation, including R packages dependencies (reccomended)
-   install_github("https://github.com/icraf-indonesia/LaSEM", dependencies = TRUE)
-
-   # minimal installation
-   # install_github("https://github.com/icraf-indonesia/LaSEM")
+   install_github("https://github.com/icraf-indonesia/LaSEM")
 ```
 
 This will install the LaSEM package and its dependencies from the GitHub
